@@ -1,7 +1,7 @@
 paper: <a href="https://doi.org/10.1016/j.sigpro.2019.06.020" target="_blank">Weighted Mean Curvature</a>, published in Signal Processing
 
 ***
-Left is the original image and the right is our result. Our result keeps the contrast.
+Left is the original image and the right is our result. Our result keeps the contrast during the smoothing.
 ![image](images/wmc.jpg)
 
 ```text
