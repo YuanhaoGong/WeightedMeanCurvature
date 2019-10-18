@@ -1,5 +1,17 @@
 function result = wmcFilter(im,iteration)
 %weighted mean curvature filter, implemented by Yuanhao Gong
+%{ 
+@article{GONG2019,
+title = "Weighted mean curvature",
+journal = "Signal Processing",
+volume = "164",
+pages = "329 - 339",
+year = "2019",
+issn = "0165-1684",
+doi = "https://doi.org/10.1016/j.sigpro.2019.06.020",
+url = "http://www.sciencedirect.com/science/article/pii/S0165168419302282",
+author = "Yuanhao Gong and Orcun Goksel",}
+%}
 u = single(im);
 N = size(u,1)*size(u,2); 
 C = size(u,3);
@@ -28,15 +40,3 @@ tmp = abs(dist); %to find the signed minimum absolute distance
 [~,ind] = min(tmp,[],3); %turn sub to index, but faster than sub2ind
 index = int32(ind)*int32(size(dist,1)*size(dist,2))+offset;
 dm = dist(index); 
-%{ 
-@article{GONG2019,
-title = "Weighted mean curvature",
-journal = "Signal Processing",
-volume = "164",
-pages = "329 - 339",
-year = "2019",
-issn = "0165-1684",
-doi = "https://doi.org/10.1016/j.sigpro.2019.06.020",
-url = "http://www.sciencedirect.com/science/article/pii/S0165168419302282",
-author = "Yuanhao Gong and Orcun Goksel",}
-%}
