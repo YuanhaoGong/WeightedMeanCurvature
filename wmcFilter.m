@@ -22,20 +22,21 @@ for ch=1:C %discrete weighted mean curvature filter on each color channel
         u(:,:,ch) = u(:,:,ch) + tmp;
     end
 end
-result = uint8(u);
+result =u;
 %% compute discrete weighted mean curvature
 function dm=wmc(u,offset)
+u=padarray(u,[1,1],'replicate'); 
 k=[1,1,0;2,-6,0;1,1,0]/6;
 k2=[2,4,1;4,-12,0;1,0,0]/12;
-dist = zeros([size(u),8],'single');
-dist(:,:,1) = conv2(u,k,'same');
-dist(:,:,2) = conv2(u,fliplr(k),'same');
-dist(:,:,3) = conv2(u,k','same');
-dist(:,:,4) = conv2(u,flipud(k'),'same');
-dist(:,:,5) = conv2(u,k2,'same');
-dist(:,:,6) = conv2(u,fliplr(k2),'same');
-dist(:,:,7) = conv2(u,flipud(k2),'same');
-dist(:,:,8) = conv2(u,rot90(k2,2),'same');
+dist = zeros([size(u)-2,8],'single');
+dist(:,:,1) = conv2(u,k,'valid');
+dist(:,:,2) = conv2(u,fliplr(k),'valid');
+dist(:,:,3) = conv2(u,k','valid');
+dist(:,:,4) = conv2(u,flipud(k'),'valid');
+dist(:,:,5) = conv2(u,k2,'valid');
+dist(:,:,6) = conv2(u,fliplr(k2),'valid');
+dist(:,:,7) = conv2(u,flipud(k2),'valid');
+dist(:,:,8) = conv2(u,rot90(k2,2),'valid');
 tmp = abs(dist); %to find the signed minimum absolute distance
 [~,ind] = min(tmp,[],3); %turn sub to index, but faster than sub2ind
 index = int32(ind)*int32(size(dist,1)*size(dist,2))+offset;
